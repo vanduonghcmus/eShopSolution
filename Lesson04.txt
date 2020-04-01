@@ -1,0 +1,10 @@
+- Create new branch for Git
+- Get flow: master--> Develope --> feature/solution/folder => create pull request -->develop --> bug/fix_error_start --> pull request to develop
+- Solution Structure:
+	+ N layer(
+		Data: Tầng làm việc với dữ liệu,
+		Business: Tầng để chứa nghĩa vụ,
+ 		Prenstation: Tầng liên quan đến hiển thị và ứng dụng, được thiết kế theo hướng Data Driven Design (Thiết kế hướng dữ liệu).
+		)
+	+ DDD (Domain Driven Design).
+- Web application --> Request pipeline.
