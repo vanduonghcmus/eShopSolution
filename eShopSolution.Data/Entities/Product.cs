@@ -19,5 +19,7 @@ namespace eShopSolution.Data.Entities
         //[Required]
         public string SeoAlias {get;set;}
 
+        public List<ProductInCategory> ProductInCategories { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; }
 }
 }
