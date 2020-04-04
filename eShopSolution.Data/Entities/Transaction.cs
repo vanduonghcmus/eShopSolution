@@ -9,7 +9,7 @@ namespace eShopSolution.Data.Entities
     {
         public int Id { get; set; }
         public DateTime TransactionDate { get; set; }
-        public int ExternalTransactionId { get; set; }
+        public string ExternalTransactionId { get; set; }
         public int Amount { get; set; }
         public int Fee { get; set; }
         public TransactionStatus Status { get; set; }

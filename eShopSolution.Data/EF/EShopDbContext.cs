@@ -16,11 +16,18 @@ namespace eShopSolution.Data.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductConfiguation());
-            modelBuilder.ApplyConfiguration(new CategoryConfiguaration());
-            modelBuilder.ApplyConfiguration(new ProductInCategoryConfiguaration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryTranslationConfiguration());
+            modelBuilder.ApplyConfiguration(new CartConfiguration());
+            modelBuilder.ApplyConfiguration(new ContactConfiguration());
+            modelBuilder.ApplyConfiguration(new LanguageConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductInCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductTransactionConfiguration());
+            modelBuilder.ApplyConfiguration(new PromotionConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
+            modelBuilder.ApplyConfiguration(new TransactionConfiguration());
             //base.OnModelCreating(modelBuilder);
         }
 
