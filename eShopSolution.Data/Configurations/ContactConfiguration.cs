@@ -13,7 +13,9 @@ namespace eShopSolution.Data.Configurations
         {
             builder.ToTable("Contacts");
 
-            builder.HasKey(x => x.Id).HasAnnotation("SqlServer:Identity", "1,1");
+            builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.Id).UseIdentityColumn();
 
             builder.Property(x => x.Email).IsRequired().IsUnicode(false).HasMaxLength(50);
 

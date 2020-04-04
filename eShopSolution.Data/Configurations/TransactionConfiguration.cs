@@ -25,6 +25,8 @@ namespace eShopSolution.Data.Configurations
             builder.Property(x => x.Amount).IsRequired();
 
             builder.Property(x => x.Fee).IsRequired();
+
+            builder.HasOne(x => x.AppUser).WithMany(x => x.Transactions).HasForeignKey(x => x.UserId);
         }
     }
 }

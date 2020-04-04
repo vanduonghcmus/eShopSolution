@@ -14,11 +14,17 @@ namespace eShopSolution.Data.Configurations
             builder.ToTable("Products");
 
             builder.HasKey(x => x.Id).HasAnnotation("SqlServer:Identity", "1,1"); // Có thể đạt x là j cũng dc
+            
             builder.Property(x => x.Id).UseIdentityColumn();
+
             builder.Property(x => x.Price).IsRequired();
+
             builder.Property(x => x.OriginalPrice).IsRequired();
+
             builder.Property(x => x.DateCreated).IsRequired();
+
             builder.Property(x => x.Stock).IsRequired().HasDefaultValue(0);
+
             builder.Property(x=>x.ViewCount).IsRequired().HasDefaultValue(0);
 
             

@@ -1,5 +1,6 @@
 ﻿using eShopSolution.Data.Entities;
 using eShopSolution.Data.Enums;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -110,6 +111,7 @@ namespace eShopSolution.Data.Extensions
                     ViewCount = 0,
                     Stock = 0                   
                 });
+
             modelBuilder.Entity<ProductTransaction>().HasData(
                 new ProductTransaction()
                 {
@@ -135,12 +137,48 @@ namespace eShopSolution.Data.Extensions
                     Details="T-shirt for men",
                     Description=" X,XL,XXL"
                 });
+
             modelBuilder.Entity<ProductInCategory>().HasData(
                 new ProductInCategory()
                 {
                     ProductId=1,
                     CategoryId = 1
                 });
+            // any guid
+            var roleId = new Guid("E605224E-1810-45C8-8846-8E180DBEDF48");
+            var userId = new Guid("06F9348C-5BB8-45FF-9582-B85F23888510");
+            modelBuilder.Entity<AppRole>().HasData(
+                new AppRole()
+                {
+                    Id=roleId,
+                    Name="Admin",
+                    NormalizedName="Admin",
+                    Description="Administrator role"
+                });
+
+            var hasher = new PasswordHasher<AppUser>();
+            modelBuilder.Entity<AppUser>().HasData(
+                new AppUser
+                {
+                    Id = userId,
+                    UserName = "Admin",
+                    NormalizedEmail = "Admin",
+                    Email = "Supergoas@gmail.com",
+                    EmailConfirmed = true,
+                    PasswordHash = hasher.HashPassword(null, "123456789"),
+                    SecurityStamp = String.Empty,
+                    FristName = "Duong",
+                    LastName = "Nguyen",
+                    Dob = new DateTime(1999 / 04 / 26)
+                }) ;
+            // Sử dụng IdentityUserRole để gán Admin đấy vào Role ở trên
+            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(
+                new IdentityUserRole<Guid>
+                {
+                    RoleId= roleId,
+                    UserId= userId
+                }
+                );
         }
     }
 }

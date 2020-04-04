@@ -12,7 +12,8 @@ namespace eShopSolution.Data.Configurations
         public void Configure(EntityTypeBuilder<Cart> builder)
         {
             builder.ToTable("Carts");
-            builder.HasKey(x=>x.Id).HasAnnotation("SqlServer:Identity","1,1");
+            builder.HasKey(x => x.Id);
+            
 
             builder.HasOne(z => z.Product).WithMany(z => z.Carts).HasForeignKey(x => x.ProductId);
 
@@ -23,6 +24,8 @@ namespace eShopSolution.Data.Configurations
             builder.Property(x => x.UserId).IsRequired();
 
             builder.Property(x => x.DateCreated).IsRequired();
+
+            builder.HasOne(x => x.AppUser).WithMany(x => x.Carts).HasForeignKey(x => x.UserId);
         }
     }
 }
