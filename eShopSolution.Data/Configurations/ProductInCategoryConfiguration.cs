@@ -11,7 +11,7 @@ namespace eShopSolution.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductInCategory> builder)
         {
-            builder.HasKey(x => new { x.CategotyId, x.ProductId });
+            builder.HasKey(x => new { x.CategoryId, x.ProductId });
 
             builder.ToTable("ProductInCategory");
 
@@ -19,7 +19,7 @@ namespace eShopSolution.Data.Configurations
                 .HasForeignKey(x => x.ProductId);// Khóa ngoại cho productId
 
             builder.HasOne(x => x.Category).WithMany(x => x.ProductInCategories)
-                .HasForeignKey(x => x.CategotyId);
+                .HasForeignKey(x => x.CategoryId);
         }
     }
 }
