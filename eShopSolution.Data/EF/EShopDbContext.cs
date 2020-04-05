@@ -60,6 +60,7 @@ namespace eShopSolution.Data.EF
         public DbSet<ProductTransaction> ProductTransactions { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<ProductInCategory> ProductInCategories { get; set; }
 
 
     }
