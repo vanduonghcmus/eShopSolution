@@ -13,7 +13,7 @@ namespace eShopSolution.Data.Configurations
         {
             builder.ToTable("Orders");
 
-            builder.HasKey(x => x.Id).HasAnnotation("SqlServer:Identity", "1,1"); 
+            builder.HasKey(x => x.Id); 
 
             builder.Property(x => x.Id).UseIdentityColumn();
 
@@ -28,6 +28,8 @@ namespace eShopSolution.Data.Configurations
             builder.Property(x => x.ShipPhoneNumber).IsRequired().HasMaxLength(200);
 
             builder.Property(x => x.UserID).IsRequired();
+
+            builder.HasOne(x => x.AppUser).WithMany(x => x.Orders).HasForeignKey(x => x.UserID);
 
         }
    }

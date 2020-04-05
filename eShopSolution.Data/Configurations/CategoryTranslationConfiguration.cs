@@ -13,8 +13,10 @@ namespace eShopSolution.Data.Configurations
         {
             builder.ToTable("CategoryTranslations");
 
-            builder.HasKey(x =>x.Id).HasAnnotation("SqlServer:Identity", "1,1");
-            
+            builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.Id).UseIdentityColumn();
+
             builder.Property(x => x.CategoryId).IsRequired();
 
             builder.Property(x => x.Name).IsRequired().HasMaxLength(500);
