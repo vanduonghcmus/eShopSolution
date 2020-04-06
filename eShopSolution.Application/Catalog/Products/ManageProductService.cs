@@ -68,11 +68,6 @@ namespace eShopSolution.Application.Catalog.Products
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<List<ProductViewModel>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
         // Search
         public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
         {// 1. Select join
@@ -119,17 +114,54 @@ namespace eShopSolution.Application.Catalog.Products
 
         public async Task<int> Update(ProductUpdateRequest request)
         {
-            throw new NotImplementedException();
+            // Đầu tiên query ra product: để tìm kiếm Id sản phẩm
+            var product = await _context.Products.FindAsync(request.Id);
+            // tạo ra query Transactons: trả về phần tử không đồng bộ đầu tiên thỏa mãn điều kiện
+            // và lấy ra languageId với phương thức request
+            var productTransactions = await _context.ProductTransactions.FirstOrDefaultAsync(x => x.ProductId == request.Id
+            && x.LanguageId == request.LanguageId);
+            if (product == null||productTransactions==null)
+            {
+                throw new EShopException($"Cannot find a product with id: {product.Id}");
+            }
+            // Lấy ra 1 danh sách gồm các ptử
+            productTransactions.Name = request.Name;
+            productTransactions.SeoAlias = request.SeoAlias;
+            productTransactions.SeoDescription = request.SeoDescription;
+            productTransactions.SeoTitle = request.SeoTitle;
+            productTransactions.Description = request.Description;
+            productTransactions.Details = request.Details;
+            // Sau đó lưu thay đổi
+            return await _context.SaveChangesAsync();
+            // Sau đó sẽ trả về kiểu int đã được update
+            // if > 0 là update thành công
+
         }
 
-        public Task<bool> UpdatePrice(int ProductId, decimal NewPrice)
+        public async Task<bool> UpdatePrice(int ProductId, decimal NewPrice)
         {
-            throw new NotImplementedException();
+            // đầu tiên tạo 1 biến product để lấy ProductId 
+            var product = await _context.Products.FindAsync(ProductId);
+            if (product == null)
+            {
+                throw new EShopException($"Cannot find a product with id: {product.Id}");
+            }
+            // gán product.Price ới lấy ra cho NewPrice
+            product.Price = NewPrice;
+            // sau đó trả thay đổi kiểu int về kiểu bool là: >0;
+            return await _context.SaveChangesAsync()>0 ;
         }
 
-        public Task<bool> UpdateStock(int productId, int addedQuantity)
+        public async Task<bool> UpdateStock(int productId, int addedQuantity)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FindAsync(productId);
+            if (product == null)
+            {
+                throw new EShopException($"Cannot find a product with id: {product.Id}");
+            }
+            // gán gtrị stock vừa lấy ra vào addedQuantity 
+            product.Stock += addedQuantity;
+            return await _context.SaveChangesAsync() > 0;
         }
 
 

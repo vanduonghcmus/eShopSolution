@@ -19,7 +19,6 @@ namespace eShopSolution.Application.Catalog.Products
         Task<int>  Update(ProductUpdateRequest request);
 
         Task<int> Delete(int productId);
-        Task<List<ProductViewModel>> GetAll();
         // Sử dụng generic, bên trong ProductViewModel sẽ trả về 1 list item
         Task<PagedResult< ProductViewModel>> GetAllPaging(GetProductPagingRequest request);
     }
