@@ -11,5 +11,6 @@ namespace eShopSolution.Application.Catalog.Products
     public interface IPublicProductService // Chứa các phương thức bên ngoài 
     {
         Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetManageProductPagingRequest request);
+        Task<List<ProductViewModel>> GetAll();
     }
 }
