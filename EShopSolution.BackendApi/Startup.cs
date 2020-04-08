@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace EShopSolution.BackendApi
 {
@@ -31,6 +32,10 @@ namespace EShopSolution.BackendApi
             services.AddDbContext<EShopDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
             //Declare DI
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger EShop Solution", Version = "v1.1" });
+            });
             // AddTransient: Mỗi lần khởi tạo thì sẽ tạo mới
             // Khi chúng ta yêu cầu 1 đối tượng IPublicProductService thì nó sẽ instace PublicProductService
             services.AddTransient<IPublicProductService, PublicProductService>();
@@ -56,6 +61,16 @@ namespace EShopSolution.BackendApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", " Swagger EShopSolution V1.1");
+            });
 
             app.UseEndpoints(endpoints =>
             {
